@@ -20,13 +20,7 @@ public class NOMW: BaseUnityPlugin
     
     private void Awake()
     {
-        
-        
         Logger = base.Logger;
-        
-
-
-        PluginConfig.InitSettings(Config);
         PatchAll();
     }
     
