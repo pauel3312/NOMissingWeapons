@@ -14,6 +14,7 @@ internal static class WeaponAmmoPatch
     internal static bool AmmoGonePrefix(Weapon __instance, ref int __result)
     {
         if (!(__instance.hardpoint?.part?.IsDetached() ?? false)) return true;
+        __instance.ammo = 0;
         __result = 0;
         return false;
     }

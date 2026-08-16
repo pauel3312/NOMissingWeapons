@@ -7,7 +7,7 @@ internal static class HardpointSpawnPatch
 {
     [HarmonyPatch(typeof(Hardpoint), nameof(Hardpoint.SpawnMount))]
     [HarmonyPostfix]
-    internal static void SpawnMountPostfix(this Hardpoint __instance, Aircraft aircraft, WeaponMount weaponMount)
+    internal static void SpawnMountPostfix(this Hardpoint __instance, Aircraft? aircraft, WeaponMount weaponMount)
     {
         __instance.part.onParentDetached += part =>
         {
@@ -16,8 +16,9 @@ internal static class HardpointSpawnPatch
             NOMW.Logger.LogDebug($"Detached {part.name}; {weapons.Length}");
             foreach (var weapon in weapons)
             {
-                weapon.weaponStation.AccountAmmo();
-                weapon.weaponStation.Updated();
+                var ws = weapon.weaponStation;
+                ws.AccountAmmo();
+                ws.Updated();
             }
         };
     }
